@@ -7,6 +7,7 @@ from hate.exception import CustomException
 from hate.logger import logging
 from hate.data_access.phishing_data import PhishingData
 from hate.entity.config_entity import DataIngestionConfig
+from hate.entity.artifact_entity import DataIngestionArtifacts
 
 
 class DataIngestion:
@@ -38,7 +39,8 @@ class DataIngestion:
         try:
             self.export_data_into_raw_data_dir()
             logging.info("Got the data from mongodb")
+            data_ingestion_artifacts = DataIngestionArtifacts(data_file_path = self.data_ingestion_config.DATA_INGESTION_DATA_DIR + '/dataset.csv')
             logging.info("Exited initiate_data_ingestion method of Data_Ingestion class")
-            return self.data_ingestion_config.DATA_INGESTION_DATA_DIR
+            return data_ingestion_artifacts
         except Exception as e:
             raise CustomException(e, sys) from e
