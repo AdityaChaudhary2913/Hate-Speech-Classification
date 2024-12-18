@@ -26,7 +26,9 @@ class DataIngestion:
             for collection_name, dataset in incoming_data.export_collections_as_dataframe():
                 if collection_name == 'dataset':
                     logging.info(f"Shape of {collection_name}: {dataset.shape}")
-                    dataset.to_csv(raw_batch_files_path, index=False)
+                    # feature_store_file_path = os.path.join(raw_batch_files_path, collection_name + '.csv')
+                    # logging.info(f"feature_store_file_path-----{feature_store_file_path}")
+                    dataset.to_csv(raw_batch_files_path + f'/{collection_name}.csv', index=False)
             logging.info("Exited the export_data_into_raw_data_dir method of Data ingestion class")
         except Exception as e:
             raise CustomException(e, sys) from e
