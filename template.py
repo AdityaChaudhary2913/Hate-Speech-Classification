@@ -28,7 +28,6 @@ list_of_files = [
     f"{project_name}/ml/__init__.py",
     f"{project_name}/ml/model.py",
     "app.py",
-    "demo.py",
     "requirements.txt",
     "Dockerfile",
     "setup.py",
