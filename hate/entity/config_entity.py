@@ -39,6 +39,8 @@ class ModelTrainerConfig:
         self.EPOCH = EPOCH
         self.BATCH_SIZE = BATCH_SIZE
         self.VALIDATION_SPLIT = VALIDATION_SPLIT
+        self.PATIENCE = PATIENCE
+        self.MONITOR = MONITOR
 
 @dataclass
 class ModelEvaluationConfig: 

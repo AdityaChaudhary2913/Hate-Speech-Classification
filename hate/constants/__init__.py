@@ -36,6 +36,8 @@ RANDOM_STATE = 42
 EPOCH = 10
 BATCH_SIZE = 256
 VALIDATION_SPLIT = 0.15
+PATIENCE = 3
+MONITOR = 'val_loss'
 
 
 # Model Architecture constants

@@ -5,7 +5,7 @@ from hate.logger import logging
 from hate.exception import CustomException
 from hate.components.data_ingestion import DataIngestion
 from hate.components.data_transforamation import DataTransformation
-# from hate.components.model_trainer import ModelTrainer
+from hate.components.model_trainer import ModelTrainer
 # from hate.components.model_evaluation import ModelEvaluation
 # from hate.components.model_pusher import ModelPusher
 
@@ -58,23 +58,17 @@ class TrainPipeline:
 
         except Exception as e:
             raise CustomException(e, sys) from e
-        
-
     
-    # def start_model_trainer(self, data_transformation_artifacts: DataTransformationArtifacts) -> ModelTrainerArtifacts:
-    #     logging.info(
-    #         "Entered the start_model_trainer method of TrainPipeline class"
-    #     )
-    #     try:
-    #         model_trainer = ModelTrainer(data_transformation_artifacts=data_transformation_artifacts,
-    #                                     model_trainer_config=self.model_trainer_config
-    #                                     )
-    #         model_trainer_artifacts = model_trainer.initiate_model_trainer()
-    #         logging.info("Exited the start_model_trainer method of TrainPipeline class")
-    #         return model_trainer_artifacts
+    def start_model_trainer(self, data_transformation_artifacts: DataTransformationArtifacts) -> ModelTrainerArtifacts:
+        logging.info("Entered the start_model_trainer method of TrainPipeline class")
+        try:
+            model_trainer = ModelTrainer(data_transformation_artifacts=data_transformation_artifacts,model_trainer_config=self.model_trainer_config)
+            model_trainer_artifacts = model_trainer.initiate_model_trainer()
+            logging.info("Exited the start_model_trainer method of TrainPipeline class")
+            return model_trainer_artifacts
 
-    #     except Exception as e:
-    #         raise CustomException(e, sys) 
+        except Exception as e:
+            raise CustomException(e, sys) 
         
 
     
@@ -128,9 +122,13 @@ class TrainPipeline:
             transformation_duration = (end_time - start_time) / 60
             print(f"Ended Data Transformation - Duration: {transformation_duration:.2f} minutes\n\n")
             
-            # model_trainer_artifacts = self.start_model_trainer(
-            #     data_transformation_artifacts=data_transformation_artifacts
-            # )
+            print("Started Model Training - Approx Duration: 3 hour\n")
+            start_time = time.time()
+            model_trainer_artifacts = self.start_model_trainer(data_transformation_artifacts=data_transformation_artifacts)
+            end_time = time.time()
+            training_duration = ((end_time - start_time) / 60) / 60
+            print(f"Ended Model Training - Duration: {training_duration:.2f} hours\n\n")
+            
             # model_evaluation_artifacts = self.start_model_evaluation(model_trainer_artifacts=model_trainer_artifacts,
             #                                                         data_transformation_artifacts=data_transformation_artifacts
             # ) 
