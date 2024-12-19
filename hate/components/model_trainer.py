@@ -24,6 +24,7 @@ class ModelTrainer:
             logging.info("Entered the spliting_data function")
             logging.info("Reading the data")
             df = pd.read_csv(csv_path, index_col=False)
+            # df = df.sample(frac=0.01) # for testing purpose
             logging.info("Splitting the data into x and y")
             x = df[CONTENT]
             y = df[LABEL]
@@ -69,17 +70,19 @@ class ModelTrainer:
                         callbacks=[early_stop],
                         verbose=1
                         )
+            # model.fit(sequences_matrix, y_train, batch_size=32, epochs=1, validation_split=0.2) # for testing purpose
             logging.info("Model training finished")
-            with open('tokenizer.pickle', 'wb') as handle:
-                pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
             os.makedirs(self.model_trainer_config.TRAINED_MODEL_DIR,exist_ok=True)
+            with open(self.model_trainer_config.TRAINED_TOKENIZER_PATH, 'wb') as handle:
+                pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
             logging.info("saving the model")
-            model.save(self.model_trainer_config.TRAINED_MODEL_PATH)
+            model.save(self.model_trainer_config.TRAINED_MODEL_PATH, save_format='tf')
             x_test.to_csv(self.model_trainer_config.X_TEST_DATA_PATH)
             y_test.to_csv(self.model_trainer_config.Y_TEST_DATA_PATH)
             x_train.to_csv(self.model_trainer_config.X_TRAIN_DATA_PATH)
             model_trainer_artifacts = ModelTrainerArtifacts(
                 trained_model_path = self.model_trainer_config.TRAINED_MODEL_PATH,
+                trained_tokenizer_path = self.model_trainer_config.TRAINED_TOKENIZER_PATH,
                 x_test_path = self.model_trainer_config.X_TEST_DATA_PATH,
                 y_test_path = self.model_trainer_config.Y_TEST_DATA_PATH)
             logging.info("Returning the ModelTrainerArtifacts")

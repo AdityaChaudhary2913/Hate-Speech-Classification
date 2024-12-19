@@ -26,7 +26,8 @@ DATA_DIR = "data"
 # Model training constants
 MODEL_TRAINER_ARTIFACTS_DIR = 'ModelTrainerArtifacts'
 TRAINED_MODEL_DIR = 'trained_model'
-TRAINED_MODEL_NAME = 'model.h5'
+TRAINED_MODEL_NAME = 'model'
+TRAINED_TOKENIZER_NAME = 'tokenizer.pickle'
 X_TEST_FILE_NAME = 'x_test.csv'
 Y_TEST_FILE_NAME = 'y_test.csv'
 
@@ -54,6 +55,6 @@ BEST_MODEL_DIR = "best_Model"
 MODEL_EVALUATION_FILE_NAME = 'loss.csv'
 
 
-MODEL_NAME = 'model.h5'
+MODEL_NAME = 'model'
 APP_HOST = "0.0.0.0"
 APP_PORT = 8080

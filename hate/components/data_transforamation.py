@@ -19,6 +19,7 @@ class DataTransformation:
         try:
             logging.info("Entered into the read_data_from_data_ingestion_dir function")
             data=pd.read_csv(self.data_ingestion_artifacts.data_file_path)
+            # data = data.sample(frac=0.05) # for testing purpose
             logging.info("Exited the read_data_from_data_ingestion_dir function")
             return data 
         except Exception as e:

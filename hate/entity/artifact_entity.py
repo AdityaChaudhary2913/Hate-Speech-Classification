@@ -12,6 +12,7 @@ class DataTransformationArtifacts:
 @dataclass
 class ModelTrainerArtifacts: 
     trained_model_path:str
+    trained_tokenizer_path:str
     x_test_path: list
     y_test_path: list
 
