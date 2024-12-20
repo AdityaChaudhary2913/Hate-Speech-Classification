@@ -7,9 +7,7 @@ from hate.logger import logging
 from hate.exception import CustomException
 from keras.utils import pad_sequences
 from hate.constants import *
-from hate.ml.model import ModelArchitecture
 from hate.configuration.mongo_db_connection import MongoDBClient
-from keras.preprocessing.text import Tokenizer
 from hate.entity.config_entity import ModelEvaluationConfig
 from hate.entity.artifact_entity import ModelEvaluationArtifacts, ModelTrainerArtifacts, DataTransformationArtifacts
 
