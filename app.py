@@ -12,10 +12,6 @@ from pymongo import MongoClient
 app = Flask(__name__)
 app.secret_key = os.getenv("SessionSecretKey")
 
-# MongoDB Atlas connection
-client = MongoClient(os.getenv("MONGODB_URL") )
-db = client['hate_speech']
-
 ADMIN_ID = os.getenv("AdminID")
 ADMIN_PASSWORD = os.getenv("AdminPassword")
 
@@ -33,11 +29,18 @@ def train_route():
     if not session.get('admin_logged_in'):
         return redirect(url_for('home')) 
     try:
-        if not model:
-            train_pipeline = TrainPipeline()
-            train_pipeline.run_pipeline()
+        if 'is_training' in session and session['is_training']:
+            print("Training is already in progress.")
+            return "Training is already in progress."
+        else:
+            if not model:
+                session['is_training'] = True
+                train_pipeline = TrainPipeline()
+                train_pipeline.run_pipeline()
+                session['is_training'] = False
         return render_template('training.html')
     except Exception as e:
+        session['is_training'] = False
         raise CustomException(e,sys)
 
 
@@ -57,6 +60,7 @@ def admin_login():
 def logout():
     session['admin_logged_in'] = False
     session.pop('admin_logged_in', None)
+    session.pop('is_training', None)
     return redirect(url_for('home'))
 
 @app.route("/text_classifier", methods=['POST', 'GET'])
