@@ -6,7 +6,6 @@ import os
 from joblib import load
 from hate.pipeline.train_pipeline import TrainPipeline
 from hate.pipeline.prediction_pipeline import PredictionPipeline
-from pymongo import MongoClient
 
 
 app = Flask(__name__)
@@ -15,14 +14,9 @@ app.secret_key = os.getenv("SessionSecretKey")
 ADMIN_ID = os.getenv("AdminID")
 ADMIN_PASSWORD = os.getenv("AdminPassword")
 
-try:    
-    model = load('trained_model/model.pkl')
-except Exception as e:
-    model = None
-
 @app.route("/")
 def home():
-    return render_template('home.html', name=model)
+    return render_template('home.html')
 
 @app.route("/train")
 def train_route():

@@ -54,11 +54,7 @@
 <body>
     <div class="container">
         <h1>Welcome to Hate Speech Classifier</h1>
-        {% if name %}
-            <a href="{{ url_for('text_classifier') }}" id="status" class="button" onclick="">Model is Trained</a>
-        {% else %}
-            <a id="status" class="button" onclick="showAdminModal()">Train the Model</a>
-        {% endif %}
+        <a id="status" class="button" onclick="showAdminModal()">Train the Model</a>
         <a href="{{ url_for('text_classifier') }}" class="button">Classify Text</a>
         <div id="adminModal" style="display: none;">
             <div class="modal-content">
