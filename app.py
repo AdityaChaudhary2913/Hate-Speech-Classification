@@ -27,11 +27,10 @@ def train_route():
             print("Training is already in progress.")
             return "Training is already in progress."
         else:
-            if not model:
-                session['is_training'] = True
-                train_pipeline = TrainPipeline()
-                train_pipeline.run_pipeline()
-                session['is_training'] = False
+            session['is_training'] = True
+            train_pipeline = TrainPipeline()
+            train_pipeline.run_pipeline()
+            session['is_training'] = False
         return render_template('training.html')
     except Exception as e:
         session['is_training'] = False
