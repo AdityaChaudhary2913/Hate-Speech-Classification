@@ -3,7 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 /notebook/dataset.csv
-/artifacts
+artifacts/*
+!artifacts/PredictionModel/
 /logs
 
 # C extensions
